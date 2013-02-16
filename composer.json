@@ -12,7 +12,8 @@
     "require": {
         "php": ">=5.3.2"
     },
+    "target-dir": "Bafford/PasswordStrengthBundle",
     "autoload": {
-        "psr-0": { "Bafford\\PasswordStrengthBundle": "src/" }
+        "psr-0": { "Bafford\\PasswordStrengthBundle": "" }
     }
 }
