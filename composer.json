@@ -3,6 +3,7 @@
     "type": "symfony-bundle",
     "description": "Provides a password strength validator",
     "keywords": ["bafford", "password", "strength"],
+    "homepage": "https://github.com/jbafford/PasswordStrengthBundle",
     "license": "MIT",
     "authors": [
         {
