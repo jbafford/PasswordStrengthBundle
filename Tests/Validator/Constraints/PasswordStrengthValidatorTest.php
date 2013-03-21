@@ -15,7 +15,7 @@ class PasswordStrengthValidatorTest extends \PHPUnit_Framework_TestCase
         
         $mockContext->expects($this->once())
             ->method('addViolation')
-            ->with($this->equalTo($constraint->tooShortMessage), $this->equalTo(['{{length}}' => $constraint->minLength]));
+            ->with($this->equalTo($constraint->tooShortMessage), $this->equalTo(array('{{length}}' => $constraint->minLength)));
         
         $validator->validate('test', $constraint);
     }
