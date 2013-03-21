@@ -13,7 +13,7 @@ class PasswordStrengthValidator extends ConstraintValidator
             $value = '';
         
         if($constraint->minLength > 0 && (strlen($value) < $constraint->minLength))
-            $this->context->addViolation($constraint->tooShortMessage, ['{{length}}' => $constraint->minLength]);
+            $this->context->addViolation($constraint->tooShortMessage, array('{{length}}' => $constraint->minLength));
         
         if($constraint->requireLetters && !preg_match('/\pL/', $value))
             $this->context->addViolation($constraint->missingLettersMessage);
