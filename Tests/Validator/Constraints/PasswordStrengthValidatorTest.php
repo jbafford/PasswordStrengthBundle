@@ -218,6 +218,21 @@ class PasswordStrengthValidatorTest extends \PHPUnit_Framework_TestCase
         $constraint->requireLetters = false;
         $validator->validate('12345', $constraint);
     }
+
+    public function testRequireSpecialCharacterOnSuccess()
+    {
+        $constraint = new BPSB\PasswordStrength;
+        $validator = new BPSB\PasswordStrengthValidator;
+        $mockContext = $this->getMock('Symfony\Component\Validator\ExecutionContext', array(), array(), '', false);
+        $validator->initialize($mockContext);
+
+        $mockContext->expects($this->never())
+            ->method('addViolation');
+        
+        $constraint->requireSpecialCharacter = true;
+        $constraint->requireLetters = false;
+        $validator->validate('1 2345', $constraint);
+    }
     
 
 }
