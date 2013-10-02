@@ -15,6 +15,9 @@ class PasswordStrengthValidator extends ConstraintValidator
         if($constraint->minLength > 0 && (strlen($value) < $constraint->minLength))
             $this->context->addViolation($constraint->tooShortMessage, array('{{length}}' => $constraint->minLength));
         
+        if($constraint->maxLength > 0 && (strlen($value) > $constraint->maxLength))
+            $this->context->addViolation($constraint->tooLongMessage, array('{{length}}' => $constraint->maxLength));
+        
         if($constraint->requireLetters && !preg_match('/\pL/', $value))
             $this->context->addViolation($constraint->missingLettersMessage);
         
@@ -23,5 +26,8 @@ class PasswordStrengthValidator extends ConstraintValidator
         
         if($constraint->requireNumbers && !preg_match('/\pN/', $value))
             $this->context->addViolation($constraint->missingNumbersMessage);
+
+        if($constraint->requireSpecialCharacter && !preg_match('/[ [:punct:]]/', $value))
+            $this->context->addViolation($constraint->missingSpecialCharacterMessage);
     }
 }
