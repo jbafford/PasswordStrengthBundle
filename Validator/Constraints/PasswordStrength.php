@@ -14,12 +14,12 @@ class PasswordStrength extends Constraint
     public $missingLettersMessage = 'Your password must include at least one letter.';
     public $requireCaseDiffMessage = 'Your password must include both upper and lower case letters.';
     public $missingNumbersMessage = 'Your password must include at least one number.';
-    public $missingSpecialCharacterMessage = 'Your password must include at least one special character " !\"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~".';
+    public $missingNonAlphanumericMessage = 'Your password must include at least one non alphanumeric character.';
     
     public $minLength = 5;
-    public $maxLength = 128;
+    public $maxLength = 0;
     public $requireLetters = true;
     public $requireCaseDiff = false;
     public $requireNumbers = false;
-    public $requireSpecialCharacter = false;
+    public $requireNonAlphanumeric = false;
 }

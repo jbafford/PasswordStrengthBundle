@@ -27,7 +27,7 @@ class PasswordStrengthValidator extends ConstraintValidator
         if($constraint->requireNumbers && !preg_match('/\pN/', $value))
             $this->context->addViolation($constraint->missingNumbersMessage);
 
-        if($constraint->requireSpecialCharacter && !preg_match('/[ [:punct:]]/', $value))
-            $this->context->addViolation($constraint->missingSpecialCharacterMessage);
+        if($constraint->requireNonAlphanumeric && ctype_alnum($value))
+            $this->context->addViolation($constraint->missingNonAlphanumericMessage);
     }
 }
