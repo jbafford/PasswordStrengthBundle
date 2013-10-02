@@ -1,9 +1,9 @@
 {
-    "name": "jbafford/password-strength-bundle",
+    "name": "deniak/password-strength-bundle",
     "type": "symfony-bundle",
     "description": "Provides a password strength validator",
     "keywords": ["bafford", "password", "strength"],
-    "homepage": "https://github.com/jbafford/PasswordStrengthBundle",
+    "homepage": "https://github.com/deniak/PasswordStrengthBundle",
     "license": "MIT",
     "authors": [
         {
