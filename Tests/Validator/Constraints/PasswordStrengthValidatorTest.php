@@ -188,7 +188,7 @@ class PasswordStrengthValidatorTest extends \PHPUnit_Framework_TestCase
         $validator->validate('!@#$%^&*()', $constraint);
     }
 
-    public function testRequireSpecialCharacterOffPass()
+    public function testRequireNonAlphanumericalOffPass()
     {
         $constraint = new BPSB\PasswordStrength;
         $validator = new BPSB\PasswordStrengthValidator;
@@ -203,7 +203,7 @@ class PasswordStrengthValidatorTest extends \PHPUnit_Framework_TestCase
         $validator->validate('12345', $constraint);
     }
     
-    public function testRequireSpecialCharacterOnFail()
+    public function testRequireNonAlphanumericalOnFail()
     {
         $constraint = new BPSB\PasswordStrength;
         $validator = new BPSB\PasswordStrengthValidator;
@@ -219,7 +219,7 @@ class PasswordStrengthValidatorTest extends \PHPUnit_Framework_TestCase
         $validator->validate('12345', $constraint);
     }
 
-    public function testRequireSpecialCharacterOnSuccess()
+    public function testRequireNonAlphanumericalOnSuccess()
     {
         $constraint = new BPSB\PasswordStrength;
         $validator = new BPSB\PasswordStrengthValidator;
