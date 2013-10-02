@@ -9,7 +9,7 @@ Validations provided include:
 - maximum length
 - contains alphabetic and/or numeric characters
 - contains mixed case characters
-- contains a special character (!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~) or white space
+- contains a non-alphanumeric character
 
 
 ##Documentation
