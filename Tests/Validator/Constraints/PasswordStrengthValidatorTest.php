@@ -198,7 +198,7 @@ class PasswordStrengthValidatorTest extends \PHPUnit_Framework_TestCase
         $mockContext->expects($this->never())
             ->method('addViolation');
         
-        $constraint->requireSpecialCharacter = false;
+        $constraint->requireNonAlphanumeric = false;
         $constraint->requireLetters = false;
         $validator->validate('12345', $constraint);
     }
@@ -212,9 +212,9 @@ class PasswordStrengthValidatorTest extends \PHPUnit_Framework_TestCase
 
         $mockContext->expects($this->once())
             ->method('addViolation')
-            ->with($this->equalTo($constraint->missingSpecialCharacterMessage));
+            ->with($this->equalTo($constraint->missingNonAlphanumericMessage));
         
-        $constraint->requireSpecialCharacter = true;
+        $constraint->requireNonAlphanumeric = true;
         $constraint->requireLetters = false;
         $validator->validate('12345', $constraint);
     }
@@ -229,7 +229,7 @@ class PasswordStrengthValidatorTest extends \PHPUnit_Framework_TestCase
         $mockContext->expects($this->never())
             ->method('addViolation');
         
-        $constraint->requireSpecialCharacter = true;
+        $constraint->requireNonAlphanumeric = true;
         $constraint->requireLetters = false;
         $validator->validate('1 2345', $constraint);
     }
