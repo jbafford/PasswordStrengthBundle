@@ -6,8 +6,10 @@ This bundle provides a validator for ensuring strong passwords in Symfony2 appli
 Validations provided include:
 
 - minimum length
+- maximum length
 - contains alphabetic and/or numeric characters
 - contains mixed case characters
+- contains non-alphanumerical characters (unicode, special character (!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~) or white space)
 
 
 ##Documentation

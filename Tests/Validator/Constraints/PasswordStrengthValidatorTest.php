@@ -19,6 +19,49 @@ class PasswordStrengthValidatorTest extends \PHPUnit_Framework_TestCase
         
         $validator->validate('test', $constraint);
     }
+
+    public function testTooShortMultiBytes()
+    {
+        $constraint = new BPSB\PasswordStrength;
+        $validator = new BPSB\PasswordStrengthValidator;
+        $mockContext = $this->getMock('Symfony\Component\Validator\ExecutionContext', array(), array(), '', false);
+        $validator->initialize($mockContext);
+
+        $mockContext->expects($this->once())
+            ->method('addViolation')
+            ->with($this->equalTo($constraint->tooShortMessage), $this->equalTo(array('{{length}}' => $constraint->minLength)));
+
+        $validator->validate('Адыг', $constraint);
+    }
+
+    public function testTooLong()
+    {
+        $constraint = new BPSB\PasswordStrength;
+        $validator = new BPSB\PasswordStrengthValidator;
+        $mockContext = $this->getMock('Symfony\Component\Validator\ExecutionContext', array(), array(), '', false);
+        $validator->initialize($mockContext);
+        
+        $mockContext->expects($this->once())
+            ->method('addViolation')
+            ->with($this->equalTo($constraint->tooLongMessage), $this->equalTo(array('{{length}}' => 20)));
+        
+        $constraint->maxLength = 20;
+        $validator->validate('abcdefghijklmnopqrstu', $constraint);
+    }
+    
+    public function testTooLongMultiBytes()
+    {
+        $constraint = new BPSB\PasswordStrength;
+        $validator = new BPSB\PasswordStrengthValidator;
+        $mockContext = $this->getMock('Symfony\Component\Validator\ExecutionContext', array(), array(), '', false);
+        $validator->initialize($mockContext);
+        
+        $mockContext->expects($this->never())
+            ->method('addViolation');
+
+        $constraint->maxLength = 8;
+        $validator->validate('Адыгэбзэ', $constraint);
+    }
     
     public function testNoLengthRestriction()
     {
@@ -172,4 +215,52 @@ class PasswordStrengthValidatorTest extends \PHPUnit_Framework_TestCase
         $constraint->requireNumbers = true;
         $validator->validate('!@#$%^&*()', $constraint);
     }
+
+    public function testRequireNonAlphanumericalOffPass()
+    {
+        $constraint = new BPSB\PasswordStrength;
+        $validator = new BPSB\PasswordStrengthValidator;
+        $mockContext = $this->getMock('Symfony\Component\Validator\ExecutionContext', array(), array(), '', false);
+        $validator->initialize($mockContext);
+        
+        $mockContext->expects($this->never())
+            ->method('addViolation');
+        
+        $constraint->requireNonAlphanumeric = false;
+        $constraint->requireLetters = false;
+        $validator->validate('12345', $constraint);
+    }
+    
+    public function testRequireNonAlphanumericalOnFail()
+    {
+        $constraint = new BPSB\PasswordStrength;
+        $validator = new BPSB\PasswordStrengthValidator;
+        $mockContext = $this->getMock('Symfony\Component\Validator\ExecutionContext', array(), array(), '', false);
+        $validator->initialize($mockContext);
+
+        $mockContext->expects($this->once())
+            ->method('addViolation')
+            ->with($this->equalTo($constraint->missingNonAlphanumericMessage));
+        
+        $constraint->requireNonAlphanumeric = true;
+        $constraint->requireLetters = false;
+        $validator->validate('12345', $constraint);
+    }
+
+    public function testRequireNonAlphanumericalOnSuccess()
+    {
+        $constraint = new BPSB\PasswordStrength;
+        $validator = new BPSB\PasswordStrengthValidator;
+        $mockContext = $this->getMock('Symfony\Component\Validator\ExecutionContext', array(), array(), '', false);
+        $validator->initialize($mockContext);
+
+        $mockContext->expects($this->never())
+            ->method('addViolation');
+        
+        $constraint->requireNonAlphanumeric = true;
+        $constraint->requireLetters = false;
+        $validator->validate('1 2345', $constraint);
+    }
+    
+
 }
