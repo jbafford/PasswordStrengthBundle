@@ -22,4 +22,6 @@ class PasswordStrength extends Constraint
     public $requireCaseDiff = false;
     public $requireNumbers = false;
     public $requireNonAlphanumeric = false;
+
+    public $charset = 'UTF-8';
 }
