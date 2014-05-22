@@ -20,12 +20,9 @@ class PasswordStrengthValidator extends ConstraintValidator
 
         if($constraint->requireCaseDiff && !preg_match('/(\p{Ll}+.*\p{Lu})|(\p{Lu}+.*\p{Ll})/', $value))
             $this->context->addViolation($constraint->requireCaseDiffMessage);
-        
-        if($constraint->requireNumbers && !preg_match('/\pN/', $value))
-            $this->context->addViolation($constraint->missingNumbersMessage);
 
         if($constraint->requireNumbers && !preg_match('/\pN/', $value))
-          $this->context->addViolation($constraint->missingNumbersMessage);
+            $this->context->addViolation($constraint->missingNumbersMessage);
 
         if ($constraint->requireSpecialCharacter && !preg_match('/[\!@#\$%\^&\*\(\)_\+\-\=\[\]\{\};\'\:",\.\/\?<>]/', $value))
           $this->context->addViolation($constraint->missingSpecialCharacterMessage);
