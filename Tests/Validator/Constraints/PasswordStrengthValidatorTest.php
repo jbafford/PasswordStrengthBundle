@@ -20,6 +20,33 @@ class PasswordStrengthValidatorTest extends \PHPUnit_Framework_TestCase
         $validator->validate('test', $constraint);
     }
     
+    public function providerTooShortMultiBytes()
+    {
+        return array(
+            array('１２３４'),
+            array('ééé'),
+            array('こんに'),
+            array('東京'),
+        );
+    }
+    
+    /**
+     * @dataProvider providerTooShortMultiBytes
+     */
+    public function testTooShortMultiBytes($value)
+    {
+        $constraint = new BPSB\PasswordStrength;
+        $validator = new BPSB\PasswordStrengthValidator;
+        $mockContext = $this->getMock('Symfony\Component\Validator\ExecutionContext', array(), array(), '', false);
+        $validator->initialize($mockContext);
+        
+        $mockContext->expects($this->once())
+            ->method('addViolation')
+            ->with($this->equalTo($constraint->tooShortMessage), $this->equalTo(array('{{length}}' => $constraint->minLength)));
+        
+        $validator->validate($value, $constraint);
+    }
+    
     public function testNoLengthRestriction()
     {
         $constraint = new BPSB\PasswordStrength;

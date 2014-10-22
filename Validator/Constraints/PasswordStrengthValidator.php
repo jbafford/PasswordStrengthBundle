@@ -12,7 +12,13 @@ class PasswordStrengthValidator extends ConstraintValidator
         if($value === null)
             $value = '';
         
-        if($constraint->minLength > 0 && (strlen($value) < $constraint->minLength))
+        if (function_exists('grapheme_strlen') && 'UTF-8' === $constraint->charset) {
+            $length = grapheme_strlen($value);
+        } else {
+            $length = mb_strlen($value, $constraint->charset);
+        }
+            
+        if($constraint->minLength > 0 && (mb_strlen($value, $constraint->charset) < $constraint->minLength))
             $this->context->addViolation($constraint->tooShortMessage, array('{{length}}' => $constraint->minLength));
         
         if($constraint->requireLetters && !preg_match('/\pL/', $value))
