@@ -60,6 +60,7 @@ Default options include:
 - requireLetters = _true_
 - requireCaseDiff = _false_
 - requireNumbers = _false_
+- requireSpecials  = _false_
 
 You can customize the validation error messages:
 
@@ -67,4 +68,4 @@ You can customize the validation error messages:
 - missingLettersMessage = _'Your password must include at least one letter.'_
 - requireCaseDiffMessage = _'Your password must include both upper and lower case letters.'_
 - missingNumbersMessage = _'Your password must include at least one number.'_
-
+- missingSpecialsMessage = _'Your password must include at least one special character.'_

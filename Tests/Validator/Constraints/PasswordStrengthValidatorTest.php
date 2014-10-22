@@ -44,6 +44,8 @@ class PasswordStrengthValidatorTest extends \PHPUnit_Framework_TestCase
             ->method('addViolation')
             ->with($this->equalTo($constraint->tooShortMessage), $this->equalTo(array('{{length}}' => $constraint->minLength)));
         
+        $constraint->minLength = 5;
+        $constraint->requireLetters = false;
         $validator->validate($value, $constraint);
     }
     
@@ -198,5 +200,54 @@ class PasswordStrengthValidatorTest extends \PHPUnit_Framework_TestCase
         $constraint->requireLetters = true;
         $constraint->requireNumbers = true;
         $validator->validate('!@#$%^&*()', $constraint);
+    }
+    
+    public function providerRequireSpecialsPass()
+    {
+        $testChars = "!@#$%^&*()_-+[]{}\|;:'\",./<>?`~¡™£¢∞§¶•–—=±⁄€‹›ﬁﬂ‡°";
+        
+        $arr = array();
+        foreach(preg_split('/(?<!^)(?!$)/u', $testChars) as $ch)
+            $arr[] = array($ch);
+        
+        return $arr;
+    }
+    
+    /**
+     * @dataProvider providerRequireSpecialsPass
+     */
+    public function testRequireSpecialsPass($value)
+    {
+        $constraint = new BPSB\PasswordStrength;
+        $validator = new BPSB\PasswordStrengthValidator;
+        $mockContext = $this->getMock('Symfony\Component\Validator\ExecutionContext', array(), array(), '', false);
+        $validator->initialize($mockContext);
+
+        $mockContext->expects($this->never())
+            ->method('addViolation');
+        
+        $constraint->minLength = 1;
+        $constraint->requireLetters = false;
+        $constraint->requireNumbers = false;
+        $constraint->requireSpecials = true;
+        $validator->validate($value, $constraint);
+    }
+    
+    public function testRequireSpecialsFail()
+    {
+        $constraint = new BPSB\PasswordStrength;
+        $validator = new BPSB\PasswordStrengthValidator;
+        $mockContext = $this->getMock('Symfony\Component\Validator\ExecutionContext', array(), array(), '', false);
+        $validator->initialize($mockContext);
+
+        $mockContext->expects($this->once())
+            ->method('addViolation')
+            ->with($this->equalTo($constraint->missingSpecialsMessage));
+        
+        $constraint->minLength = 1;
+        $constraint->requireLetters = false;
+        $constraint->requireNumbers = false;
+        $constraint->requireSpecials = true;
+        $validator->validate('1234abcd', $constraint);
     }
 }

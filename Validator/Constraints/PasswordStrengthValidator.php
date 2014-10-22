@@ -29,5 +29,10 @@ class PasswordStrengthValidator extends ConstraintValidator
         
         if($constraint->requireNumbers && !preg_match('/\pN/', $value))
             $this->context->addViolation($constraint->missingNumbersMessage);
+        
+        //Cc: Control; M: Mark; P: Punctuation; S: Symbol; Z:  Separator
+        //Not checked: L: Letter; N: Number; C{fosn}: format, private-use, surrogate, unassigned
+        if($constraint->requireSpecials && !preg_match('/[\p{Cc}\pM\pP\pS\pZ]/', $value))
+            $this->context->addViolation($constraint->missingSpecialsMessage);
     }
 }

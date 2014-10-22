@@ -8,6 +8,7 @@ Validations provided include:
 - minimum length
 - contains alphabetic and/or numeric characters
 - contains mixed case characters
+- contains "special" characters (unicode characters in the Control, Mark, Punctuation, Symbol, and Separator classes)
 
 
 ##Documentation
