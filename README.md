@@ -11,18 +11,18 @@ Validations provided include:
 - contains "special" characters (unicode characters in the Control, Mark, Punctuation, Symbol, and Separator classes)
 
 
-##Documentation
+## Documentation
 
 Documentation is available at [Resources/doc/index.md](https://github.com/jbafford/PasswordStrengthBundle/blob/master/Resources/doc/index.md)
 
 
-##License
+## License
 
 This bundle is under the MIT license. See the complete license in the bundle:
 
 - [Resources/meta/LICENSE](https://github.com/jbafford/PasswordStrengthBundle/blob/master/Resources/meta/LICENSE)
 
 
-##Reporting Issues or Feature Requests
+## Reporting Issues or Feature Requests
 
 Issues and feature requests are tracked on [GitHub](https://github.com/jbafford/PasswordStrengthBundle/issues).

@@ -1,7 +1,7 @@
 BaffordPasswordStrengthBundle
 =============================
 
-##Installation
+## Installation
 
 ### Get the bundle
 
@@ -37,7 +37,7 @@ public function registerBundles()
 ```
 
 
-##Usage
+## Usage
 
 If you are using annotations for validations, include the constraints namespace:
 
