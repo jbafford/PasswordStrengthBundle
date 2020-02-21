@@ -10,7 +10,7 @@ Add the following in your composer.json:
 ``` json
 {
     "require": {
-        "jbafford/password-strength-bundle": "dev-master"
+        "jbafford/password-strength-bundle": "^1.0"
     }
 }
 ```
